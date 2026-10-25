@@ -1,0 +1,42 @@
+# -----------------------------
+# Zero-Trust Printer Output
+# -----------------------------
+# Ignore all generated print jobs (PDFs and raw PS files)
+print_jobs/
+*.pdf
+*.ps
+
+# -----------------------------
+# Python
+# -----------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments (if you test locally outside Docker)
+venv/
+env/
+.venv/
+
+# -----------------------------
+# Docker
+# -----------------------------
+.docker-compose.env
+.env
+
+# -----------------------------
+# OS & IDE Files
+# -----------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# IDEs
+.vscode/
+.idea/

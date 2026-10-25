@@ -1,0 +1,35 @@
+services:
+  virtual-printer:
+    build: .
+    container_name: isolated_printer
+    ports:
+      # Map standard HP Jetdirect port to the container
+      - "9100:9100"
+    volumes:
+      # Output directory for the generated PDFs
+      - ./print_jobs:/app/print_jobs
+      
+    # --- RESOURCE LIMITS (Prevents Crypto-Miners/Resource Hijacking) ---
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    # -------------------------------------------------------------------
+
+    # --- DNS BLACKHOLE (Blocks domain resolution) ---
+    dns:
+      - 127.0.0.0
+    # ------------------------------------------------
+
+    # --- KERNEL & FILESYSTEM HARDENING ---
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp   # Required for Ghostscript to safely process files in RAM
+    # -------------------------------------
+    
+    restart: unless-stopped
